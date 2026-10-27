@@ -36,7 +36,7 @@
 .nz-err{color:#a33;font-size:12px;margin:8px 0}
 </style>
 
-<script>try{var p=JSON.parse(localStorage.getItem("ahad-fx-prefs-v1"));if(p&&/^(aot|ds|nar)$/.test(p.theme)){document.documentElement.dataset.theme=p.theme;if(/^(water|flame|mist)$/.test(p.sub))document.documentElement.dataset.sub=p.sub}if(p&&p.calm)document.documentElement.classList.add("fxCalm");if(p&&p.pro===false)document.documentElement.classList.add("fxNoPro")}catch(e){}</script>
+<script>try{var p=JSON.parse(localStorage.getItem("ahad-fx-prefs-v1"));if(p&&/^(aot|ds|nar)$/.test(p.theme)){document.documentElement.dataset.theme=p.theme;if(p.theme==="ds"&&/^(water|flame|mist)$/.test(p.sub))document.documentElement.dataset.sub=p.sub}if(p&&p.calm)document.documentElement.classList.add("fxCalm");if(!(p&&p.pro===true))document.documentElement.classList.add("fxNoPro")}catch(e){}</script>
 <style>
 /* ===== Anime Theme System (added) ===== */
 @property --p{syntax:'<number>';inherits:false;initial-value:0}
@@ -191,6 +191,43 @@ html[data-theme] .progressFill{position:relative;overflow:hidden}html[data-theme
 html[data-theme] .sectionTitle h2{background:linear-gradient(90deg,var(--ink) 30%,var(--acc),var(--ink) 70%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:fxFlow 7s linear infinite}
 button:active,.tab:active{box-shadow:0 0 0 6px color-mix(in srgb,var(--acc) 35%,transparent)}
 .fxGrid>:nth-child(1) strong{font-size:clamp(22px,6.6vw,34px)}
+</style>
+<style>
+/* ===== Breathing sub-styles (added) ===== */
+.fl,.mi{display:none}html[data-sub=flame] .fl{display:block;transform-box:fill-box;transform-origin:50% 100%;animation:dFlick 1.1s ease-in-out infinite alternate}html[data-sub=mist] .mi{display:block;animation:dMist 12s ease-in-out infinite alternate}
+@keyframes dFlick{from{transform:scale(1,.85) skewX(-4deg)}to{transform:scale(1.1,1.25) skewX(5deg)}}@keyframes dMist{from{transform:translateX(-50px)}to{transform:translateX(90px)}}
+html[data-theme=ds][data-sub=flame]{--acc:#e0642a;--grad:linear-gradient(90deg,#a8283a,#e0642a,#f2b441);--hbg:linear-gradient(135deg,#2a0f10,#7a2a14 60%,#e0642a);--hov:rgba(42,15,16,.85);--card2:#fbf0e8;--pink3:#f1d9c8}
+html[data-theme=ds][data-sub=mist]{--acc:#7d8fb0;--grad:linear-gradient(90deg,#7d8fb0,#cfd8ea);--hbg:linear-gradient(135deg,#2b3446,#56668a 60%,#aab6cf);--hov:rgba(43,52,70,.85);--card2:#eef1f7;--pink3:#d5dcea}
+html[data-sub=flame] .fxArt .wv{stroke:#ff8a3d}html[data-sub=flame] .fxArt .glow{fill:#ff5a1f}html[data-sub=flame] .fxArt .rip{stroke:#ffb366}
+html[data-sub=mist] .fxArt .wv{stroke:#cfd8ea}html[data-sub=mist] .fxArt .glow{fill:#dfe6f0}html[data-sub=mist] .fxArt .rip{stroke:#fff}
+html[data-theme=ds][data-sub=flame] #fxBg{background:linear-gradient(#f7e6d8,#f0c9a8)}html[data-theme=ds][data-sub=mist] #fxBg{background:linear-gradient(#e4eaf3,#bcc8dc)}
+html[data-theme=ds][data-sub=flame] #fxBg::after{height:48vh;background:linear-gradient(transparent,#ff7a2a66);animation:fxFlicker 1.5s ease-in-out infinite alternate}
+html[data-theme=ds][data-sub=mist] .fxSm{opacity:.8;background:#d8e0ee}html[data-theme=ds][data-sub=mist] #fxBg::after{height:40vh;background:linear-gradient(transparent,#ffffffaa)}
+@keyframes fxFlicker{from{opacity:.65}to{opacity:1}}
+</style>
+<style>
+/* ===== Parallax anime scene + simplify (added) ===== */
+html[data-theme=aot]{--t1:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V150L80%20110%20160%20140%20260%2090%20360%20135%20450%20100%20540%20140%20600%20150V200Z%27%20fill%3D%27%233a4439%27%20opacity%3D%27.75%27/%3E%3C/svg%3E");--t2:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V140H40V110L70%2090%20100%20110V150H160V120L200%2095%20240%20120V150H320V125L350%20105%20380%20125V150H450V115L490%2092%20530%20115V140H600V200Z%27%20fill%3D%27%231b221c%27/%3E%3C/svg%3E");--t3:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V60H50V40H90V60H200V40H240V60H330V40H370V60H480V40H520V60H600V200Z%27%20fill%3D%27%230b0d0b%27/%3E%3C/svg%3E")}
+html[data-theme=ds]{--t1:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V150Q75%2090%20150%20150T300%20150T450%20150T600%20150V200Z%27%20fill%3D%27%239fc3c6%27%20opacity%3D%27.6%27/%3E%3C/svg%3E");--t2:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V150q25-30%2050%200%20t50%200%20q25-30%2050%200%20t50%200%20q25-30%2050%200%20t50%200%20q25-30%2050%200%20t50%200%20q25-30%2050%200%20t50%200%20q25-30%2050%200%20t50%200%20V200Z%27%20fill%3D%27%231f8a8a%27%20opacity%3D%27.32%27/%3E%3C/svg%3E");--t3:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%208H600%27%20stroke%3D%27%235a3e7a%27%20stroke-width%3D%275%27/%3E%3Cellipse%20cx%3D%2740%27%20cy%3D%2736%27%20rx%3D%2711%27%20ry%3D%2724%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%2744%27%20cy%3D%2746%27%20rx%3D%277%27%20ry%3D%2718%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27110%27%20cy%3D%2744%27%20rx%3D%2711%27%20ry%3D%2730%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27114%27%20cy%3D%2754%27%20rx%3D%277%27%20ry%3D%2724%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27175%27%20cy%3D%2732%27%20rx%3D%2711%27%20ry%3D%2722%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27179%27%20cy%3D%2742%27%20rx%3D%277%27%20ry%3D%2716%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27260%27%20cy%3D%2746%27%20rx%3D%2711%27%20ry%3D%2732%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27264%27%20cy%3D%2756%27%20rx%3D%277%27%20ry%3D%2726%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27340%27%20cy%3D%2738%27%20rx%3D%2711%27%20ry%3D%2726%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27344%27%20cy%3D%2748%27%20rx%3D%277%27%20ry%3D%2720%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27430%27%20cy%3D%2748%27%20rx%3D%2711%27%20ry%3D%2734%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27434%27%20cy%3D%2758%27%20rx%3D%277%27%20ry%3D%2728%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27500%27%20cy%3D%2734%27%20rx%3D%2711%27%20ry%3D%2724%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27504%27%20cy%3D%2744%27%20rx%3D%277%27%20ry%3D%2718%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3Cellipse%20cx%3D%27565%27%20cy%3D%2742%27%20rx%3D%2711%27%20ry%3D%2728%27%20fill%3D%27%23b79ae0%27%20opacity%3D%27.7%27/%3E%3Cellipse%20cx%3D%27569%27%20cy%3D%2752%27%20rx%3D%277%27%20ry%3D%2722%27%20fill%3D%27%238f6fc2%27%20opacity%3D%27.6%27/%3E%3C/svg%3E")}
+html[data-theme=nar]{--t1:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cg%20fill%3D%27%23fff%27%20opacity%3D%27.9%27%3E%3Cellipse%20cx%3D%2770%27%20cy%3D%2740%27%20rx%3D%2752%27%20ry%3D%2714%27/%3E%3Cellipse%20cx%3D%2796%27%20cy%3D%2730%27%20rx%3D%2732%27%20ry%3D%2712%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23fff%27%20opacity%3D%27.9%27%3E%3Cellipse%20cx%3D%27250%27%20cy%3D%2770%27%20rx%3D%2752%27%20ry%3D%2714%27/%3E%3Cellipse%20cx%3D%27276%27%20cy%3D%2760%27%20rx%3D%2732%27%20ry%3D%2712%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23fff%27%20opacity%3D%27.9%27%3E%3Cellipse%20cx%3D%27430%27%20cy%3D%2734%27%20rx%3D%2752%27%20ry%3D%2714%27/%3E%3Cellipse%20cx%3D%27456%27%20cy%3D%2724%27%20rx%3D%2732%27%20ry%3D%2712%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23fff%27%20opacity%3D%27.9%27%3E%3Cellipse%20cx%3D%27540%27%20cy%3D%2780%27%20rx%3D%2752%27%20ry%3D%2714%27/%3E%3Cellipse%20cx%3D%27566%27%20cy%3D%2770%27%20rx%3D%2732%27%20ry%3D%2712%27/%3E%3C/g%3E%3C/svg%3E");--t2:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V120Q150%2040%20300%20120T600%20120V200Z%27%20fill%3D%27%238cc46a%27%20opacity%3D%27.6%27/%3E%3C/svg%3E");--t3:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200V140H40V110L70%2090%20100%20110V150H160V120L200%2095%20240%20120V150H320V125L350%20105%20380%20125V150H450V115L490%2092%20530%20115V140H600V200Z%27%20fill%3D%27%233c5a2c%27/%3E%3C/svg%3E")}
+html[data-theme=aot] #fxBg::after,html[data-theme=nar] #fxBg::after{display:none}
+.fxCam{position:absolute;inset:0;transform-origin:50% 100%;animation:fxZoom 26s ease-in-out infinite alternate}html:not([data-theme]) .fxCam{display:none}
+.fxL{position:absolute;left:0;right:0;bottom:-50px;pointer-events:none;will-change:transform}.fxL.l1{height:calc(42vh + 50px)}.fxL.l2{height:calc(34vh + 50px)}.fxL.l3{height:calc(22vh + 50px)}
+html[data-theme=ds] .fxL.l3,html[data-theme=nar] .fxL.l1{bottom:auto;top:-30px;height:30vh}
+.fxLi{position:absolute;top:0;bottom:0;left:0;width:calc(100% + 600px);background-size:600px 100%;background-repeat:repeat-x;animation:fxPan 90s linear infinite}
+.l1 .fxLi{background-image:var(--t1);animation-duration:150s}.l2 .fxLi{background-image:var(--t2);animation-duration:85s}.l3 .fxLi{background-image:var(--t3);animation-duration:50s}
+@keyframes fxPan{to{transform:translate3d(-600px,0,0)}}@keyframes fxZoom{to{transform:scale(1.07)}}
+html.fxTyping :is(.fxCam,.fxLi){animation-play-state:paused}
+html[data-theme] :is(.chapter,.calendarWeek,.subjectCard,.nz-card,.fxTile){background:color-mix(in srgb,var(--card) 80%,transparent)}
+html[data-theme] .tabs{flex-wrap:wrap;gap:6px}html[data-theme] .tab{white-space:nowrap;padding:8px 13px;font-size:14px}
+html[data-theme] .hero:not(.fxOpen) :is(.stats,.progressMeta){display:none}html[data-theme] .hero{cursor:pointer;padding:14px 16px}html[data-theme] .hero .heroTop .sub{display:none}html[data-theme] .hero:not(.fxOpen)::after{content:"tap for details";display:block;font-size:11px;opacity:.6;margin-top:4px}
+.fxMore{margin:6px 0}.fxMore summary{cursor:pointer;font-weight:700;margin:6px 0}
+#fxTap{position:fixed;inset:0;pointer-events:none;z-index:98;overflow:hidden}.fxTp{position:absolute;pointer-events:none}
+.fxTp.aot{width:110px;height:3px;margin:-1px 0 0 -55px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 10px #c9a24a;animation:xSl .5s ease-out forwards}
+.fxTp.ds{width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:3px solid transparent;border-top-color:var(--acc);box-shadow:0 -4px 12px var(--acc);animation:xArc .55s ease-out forwards}
+.fxTp.nar{width:16px;height:48px;margin:-6px 0 0 -8px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2020%2060%27%3E%3Cpath%20d%3D%27M10%200L16%2018%2010%2024%204%2018z%27%20fill%3D%27%23aab5c0%27/%3E%3Crect%20x%3D%278.5%27%20y%3D%2724%27%20width%3D%273%27%20height%3D%2722%27%20fill%3D%27%232a2a2a%27/%3E%3Ccircle%20cx%3D%2710%27%20cy%3D%2752%27%20r%3D%275%27%20fill%3D%27none%27%20stroke%3D%27%232a2a2a%27%20stroke-width%3D%272%27/%3E%3C/svg%3E") center/contain no-repeat;animation:xKu .8s ease-in forwards}
+@keyframes xSl{from{transform:rotate(-35deg) scaleX(0);opacity:1}60%{opacity:1}to{transform:rotate(-35deg) scaleX(1.2);opacity:0}}@keyframes xArc{from{transform:rotate(-120deg) scale(.5);opacity:1}to{transform:rotate(120deg) scale(1.1);opacity:0}}
+@keyframes xKu{from{transform:translate(-150px,-120px) rotate(135deg);opacity:0}25%{opacity:1}55%{transform:translate(0,0) rotate(135deg);opacity:1}to{transform:translate(0,0) rotate(135deg);opacity:0}}
 </style>
 </head>
 <body>
@@ -421,7 +458,7 @@ setInterval(()=>{if(!document.hidden&&$("neet").classList.contains("active"))tic
     <button class="fxStc" data-th="nar" aria-pressed="false"><div class="fxMini nar"><i></i></div><b>Shinobi Way <span class="fxAct"></span></b><small>Leaf village, chakra and ninja scrolls.</small></button>
   </div>
   <div class="fxChips" id="fxSubs" hidden><span class="hint">Breathing style:</span><button class="smallBtn" data-sub="water" aria-pressed="false">Water</button><button class="smallBtn" data-sub="flame" aria-pressed="false">Flame</button><button class="smallBtn" data-sub="mist" aria-pressed="false">Mist</button></div>
-  <div class="fxChips"><button class="smallBtn" data-th="" id="fxClassic" aria-pressed="false">Classic pink</button><button class="smallBtn" id="fxCalmBtn" aria-pressed="false">Focus mode (no animation)</button><button class="smallBtn" id="fxProBtn" aria-pressed="true">XP &amp; streak: on</button></div>
+  <details class="fxMore"><summary>More options</summary><div class="fxChips"><button class="smallBtn" data-th="" id="fxClassic" aria-pressed="false">Classic pink</button><button class="smallBtn" id="fxCalmBtn" aria-pressed="false">Focus mode (no animation)</button><button class="smallBtn" id="fxProBtn" aria-pressed="true">XP &amp; streak: on</button><button class="smallBtn" id="fxSndBtn" aria-pressed="true">Sound: on</button></div></details>
   <p class="hint">Effects pause automatically while you type, when the tab is hidden, and if your device asks for reduced motion.</p>
 </div>
 <script>
@@ -430,8 +467,8 @@ setInterval(()=>{if(!document.hidden&&$("neet").classList.contains("active"))tic
 'use strict';
 const PK="ahad-fx-prefs-v1",NK="ahad-neet-checklist-v1",$=id=>document.getElementById(id),R=document.documentElement;
 const pad=n=>String(n).padStart(2,"0"),ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
-let prefs={theme:"",sub:"water",calm:false,pro:true,nick:""};
-try{const p=JSON.parse(localStorage.getItem(PK));if(p&&typeof p==="object"){if(/^(aot|ds|nar)$/.test(p.theme))prefs.theme=p.theme;if(/^(water|flame|mist)$/.test(p.sub))prefs.sub=p.sub;prefs.calm=p.calm===true;prefs.pro=p.pro!==false;if(typeof p.nick==="string")prefs.nick=p.nick.slice(0,20)}}catch(e){}
+let prefs={theme:"",sub:"water",calm:false,pro:false,nick:""};
+try{const p=JSON.parse(localStorage.getItem(PK));if(p&&typeof p==="object"){if(/^(aot|ds|nar)$/.test(p.theme))prefs.theme=p.theme;if(/^(water|flame|mist)$/.test(p.sub))prefs.sub=p.sub;prefs.calm=p.calm===true;prefs.pro=p.pro===true;if(typeof p.nick==="string")prefs.nick=p.nick.slice(0,20)}}catch(e){}
 const savePrefs=()=>{try{localStorage.setItem(PK,JSON.stringify(prefs))}catch(e){}};
 const T={
  aot:{world:"Wings of Freedom",strL:"Expedition streak",misL:"Scout mission",ranks:[["Cadet",0],["Scout",300],["Veteran",900],["Elite Scout",1800]],tip:"Wings of Freedom (original emblem)",egg:"Dedicate your heart to the next page. 🕊",
@@ -473,7 +510,7 @@ function boom(){if(prefs.calm||matchMedia("(prefers-reduced-motion:reduce)").mat
 /* particles: few, pausable */
 const cv=$("fxCv"),cx=cv.getContext("2d"),mq=matchMedia("(prefers-reduced-motion:reduce)");let W=0,H=0,P=[],raf=0,typing=false;
 function kinds(){const t=prefs.theme,sub=prefs.sub;if(t==="aot")return[{c:"#d8d2bc",r:1.6,vx:.15,vy:.1},{c:"#7d9a62",r:5,vx:.5,vy:.6,leaf:1},{c:"#9a9a90",r:2.4,vx:.3,vy:-.1,a:.35}];
- if(t==="ds"){const k=[{c:"#b79ae0",r:5,vx:.4,vy:.35,leaf:1}];k.push(sub==="flame"?{c:"#ff8a3d",r:2,vx:.1,vy:-.8}:sub==="mist"?{c:"#ffffff",r:7,vx:.2,vy:0,a:.3}:{c:"#4fb8cc",r:2.5,vx:.1,vy:-.35});return k}
+ if(t==="ds"){const L={c:"#b79ae0",r:5,vx:.4,vy:.35,leaf:1};return sub==="flame"?[{c:"#ff8a3d",r:3,vx:.15,vy:-1.1,a:.9},{c:"#f2b441",r:2,vx:-.1,vy:-.8,a:.9},L]:sub==="mist"?[{c:"#8fa3c4",r:16,vx:.4,vy:0,a:.2},{c:"#8fa3c4",r:9,vx:.25,vy:.05,a:.25},L]:[{c:"#4fb8cc",r:3,vx:.1,vy:-.5,a:.8},{c:"#7fd0e0",r:2,vx:-.1,vy:-.3,a:.8},L]}
  if(t==="nar")return[{c:"#e8812a",r:5,vx:.6,vy:.4,leaf:1},{c:"#f0b43c",r:2,vx:.1,vy:-.3}];return[]}
 function mk(){const K=kinds();P=[];if(!K.length)return;const n=innerWidth<620?24:40;for(let i=0;i<n;i++){const k=K[i%K.length];P.push({k,x:Math.random()*W,y:Math.random()*H,rot:Math.random()*6,s:.6+Math.random()*.8})}}
 function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;mk()}
@@ -486,7 +523,7 @@ document.addEventListener("focusout",()=>setTimeout(()=>{if(!document.activeElem
 addEventListener("resize",()=>{size();kick()});
 /* apply theme */
 function apply(){R.classList.toggle("fxCalm",prefs.calm);R.classList.toggle("fxNoPro",!prefs.pro);
- if(prefs.theme){R.dataset.theme=prefs.theme;R.dataset.sub=prefs.sub}else{delete R.dataset.theme;delete R.dataset.sub}
+ if(prefs.theme){R.dataset.theme=prefs.theme;if(prefs.theme==="ds")R.dataset.sub=prefs.sub;else delete R.dataset.sub}else{delete R.dataset.theme;delete R.dataset.sub}
  const th=T[prefs.theme];$("fxEmblem").innerHTML=th?th.svg:'<span style="font-size:26px">🌷</span>';$("fxEmblem").title=th?th.tip:"";
  document.querySelectorAll("[data-th]").forEach(b=>{const on=b.dataset.th===prefs.theme;b.setAttribute("aria-pressed",on);const a=b.querySelector(".fxAct");if(a)a.textContent=on?"✓ Active":""});
  document.querySelectorAll("[data-sub]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.sub===prefs.sub));$("fxSubs").hidden=prefs.theme!=="ds";
@@ -548,7 +585,7 @@ const hero=document.querySelector('#fxDash .fxHero'),art=document.createElement(
 const burst=document.createElement('div');burst.id='fxBurst';burst.setAttribute('aria-hidden','true');document.body.appendChild(burst);
 ['fxSpeed','fxWipe'].forEach(i=>{const d=document.createElement('div');d.id=i;d.setAttribute('aria-hidden','true');document.body.appendChild(d)});
 const mq=matchMedia('(prefers-reduced-motion:reduce)'),ok=()=>R.dataset.theme&&!R.classList.contains('fxCalm')&&!mq.matches&&!document.hidden&&!R.classList.contains('fxTyping');
-function paint(){art.innerHTML=ART[R.dataset.theme]||''}
+function paint(){art.innerHTML=ART[R.dataset.theme]||'';const s=art.querySelector('svg');if(s&&R.dataset.theme==='ds'){let x='';[205,237,269].forEach(function(c,i){x+='<path class="fl" style="animation-delay:-'+i*.4+'s" d="M'+(c-8)+' 100c2-14 0-20 8-30 2 10 10 12 8 30z" fill="#ff7a2a"/><path class="fl" style="animation-delay:-'+i*.4+'s" d="M'+(c-4)+' 100c1-8 0-12 4-17 1 6 5 7 4 17z" fill="#f2c14a"/>'});[[100,86],[160,98],[40,100]].forEach(function(c,i){x+='<ellipse class="mi" style="animation-delay:-'+i*3+'s;filter:blur(4px)" cx="'+c[0]+'" cy="'+c[1]+'" rx="60" ry="10" fill="#fff" opacity=".55"/>'});s.insertAdjacentHTML('beforeend',x)}}
 new MutationObserver(paint).observe(R,{attributes:true,attributeFilter:['data-theme']});paint();
 function go(id){if(!ok())return;const e=$(id);e.classList.remove('go');void e.offsetWidth;e.classList.add('go')}
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>go('fxSpeed')));
@@ -560,6 +597,38 @@ function pop(){if(!ok())return;const t=R.dataset.theme;let h='';
  else for(let i=0;i<7;i++)h+='<i class="fxStk nar" style="top:'+rnd(10,80)+'%;animation-delay:'+rnd(0,.8)+'s;--d:'+rnd(1.8,2.8)+'s"></i>';
  burst.innerHTML=h;setTimeout(()=>{burst.innerHTML=''},3600)}
 setInterval(pop,9000);setTimeout(pop,2500);
+})();
+</script>
+<script>
+/* ===== Parallax camera, tap effects, soft sound (added) ===== */
+(function(){'use strict';
+const R=document.documentElement,$=id=>document.getElementById(id),mq=matchMedia('(prefers-reduced-motion:reduce)');
+$('fxBg').insertAdjacentHTML('afterbegin','<div class="fxCam"><div class="fxL l1"><div class="fxLi"></div></div><div class="fxL l2"><div class="fxLi"></div></div><div class="fxL l3"><div class="fxLi"></div></div></div>');
+const L=[...document.querySelectorAll('#fxBg .fxL')],F=[.04,.09,.16];let sy=0,px=0,py=0,raf=0;
+function ap(){raf=0;L.forEach((l,i)=>{l.style.transform='translate3d('+(-px*F[i]*60)+'px,'+(-Math.min(sy*F[i]*.25,50)+py*F[i]*30)+'px,0)'})}
+const kick=()=>{if(!raf)raf=requestAnimationFrame(ap)};
+addEventListener('scroll',()=>{sy=scrollY;kick()},{passive:true});addEventListener('pointermove',e=>{px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5;kick()},{passive:true});
+addEventListener('deviceorientation',e=>{if(e.gamma!=null){px=Math.max(-.5,Math.min(.5,e.gamma/60));kick()}});
+const hero=document.querySelector('.hero');hero.addEventListener('click',()=>hero.classList.toggle('fxOpen'));
+/* sound */
+const SK='ahad-fx-snd-v1';let snd=true,ac=null;try{snd=localStorage.getItem(SK)!=='0'}catch(e){}
+const can=()=>snd&&R.dataset.theme&&!R.classList.contains('fxCalm')&&!mq.matches;
+function A(){if(!ac){const C=window.AudioContext||window.webkitAudioContext;if(C)try{ac=new C()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac}
+function noise(d,f0,f1,v){const a=A();if(!a)return;const b=a.createBuffer(1,Math.ceil(a.sampleRate*d),a.sampleRate),c=b.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=Math.random()*2-1;const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain(),t=a.currentTime;s.buffer=b;f.type='bandpass';f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(f);f.connect(g);g.connect(a.destination);s.start()}
+function tone(f0,f1,d,v,ty,delay){const a=A();if(!a)return;const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+(delay||0);o.type=ty||'sine';o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d)}
+function sfx(k){if(!can())return;const t=R.dataset.theme;
+ if(k==='tap'){if(t==='aot')noise(.18,3500,900,.1);else if(t==='ds'){tone(900,420,.28,.06);noise(.1,2500,1500,.03)}else{noise(.22,1500,400,.09);tone(140,60,.14,.12,'sine',.16)}}
+ else if(k==='swap'){noise(.38,300,3500,.1)}else if(k==='big'){noise(.6,200,4000,.14);tone(200,800,.4,.05,'triangle')}
+ else if(k==='win'){[523,659,784,1046].forEach((f,i)=>tone(f,f,.22,.07,'triangle',i*.11))}}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>sfx('swap')));
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-th]'))sfx('big')});
+new MutationObserver(()=>{if(/Daily target/.test($('fxToast').textContent))sfx('win')}).observe($('fxToast'),{childList:true,characterData:true,subtree:true});
+const sb=$('fxSndBtn');const lab=()=>{sb.textContent='Sound: '+(snd?'on':'off');sb.setAttribute('aria-pressed',snd)};lab();
+sb.onclick=()=>{snd=!snd;try{localStorage.setItem(SK,snd?'1':'0')}catch(e){}lab();if(snd){A();sfx('swap')}};
+/* tap effects */
+const tap=document.createElement('div');tap.id='fxTap';tap.setAttribute('aria-hidden','true');document.body.appendChild(tap);let last=0;
+document.addEventListener('pointerdown',e=>{const t=R.dataset.theme;if(!t||mq.matches||R.classList.contains('fxCalm'))return;if(e.target.closest&&e.target.closest('textarea,input,#fxStudio'))return;const n=Date.now();if(n-last<120)return;last=n;sfx('tap');
+ const a=document.createElement('i');a.className='fxTp '+t;a.style.left=e.clientX+'px';a.style.top=e.clientY+'px';tap.appendChild(a);setTimeout(()=>a.remove(),1000)});
 })();
 </script>
 </body>
